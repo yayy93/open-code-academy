@@ -1,1 +1,117 @@
-:root{font-family:system-ui,Segoe UI,sans-serif;color:#e7edf5;background:#101826}*{box-sizing:border-box}body{margin:0}header{padding:24px 5%;background:#18263b}header h1{margin:0}header p{color:#c5d0e0}main{display:grid;grid-template-columns:240px 1fr;gap:24px;padding:24px 5%}aside,section{border:1px solid #33445e;border-radius:12px;padding:20px}nav{display:grid;gap:8px}button{border:0;border-radius:7px;padding:11px 14px;background:#2563eb;color:white;cursor:pointer}nav button{text-align:left;background:#26364e}nav button.active{background:#2563eb}textarea{display:block;width:100%;height:210px;background:#0a1220;color:#e2f6ea;border:1px solid #536782;border-radius:8px;padding:14px;font:15px/1.5 Consolas,monospace;margin:10px 0}.actions{display:flex;flex-wrap:wrap;gap:10px}iframe{background:white;width:100%;height:190px;border:0;border-radius:8px}#feedback{min-height:25px;color:#9fe1ad}label{font-weight:700}@media(max-width:720px){main{grid-template-columns:1fr}}
+/* Open Code Academy: base styles. No external fonts or assets, so the app works offline. */
+
+:root {
+  font-family: system-ui, Segoe UI, sans-serif;
+  color: #e7edf5;
+  background: #101826;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+/* Page header */
+
+header {
+  padding: 24px 5%;
+  background: #18263b;
+}
+
+header h1 {
+  margin: 0;
+}
+
+header p {
+  color: #c5d0e0;
+}
+
+/* Two-column layout: lesson list on the left, lesson on the right */
+
+main {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 24px;
+  padding: 24px 5%;
+}
+
+aside,
+section {
+  border: 1px solid #33445e;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+/* Lesson list */
+
+nav {
+  display: grid;
+  gap: 8px;
+}
+
+button {
+  border: 0;
+  border-radius: 7px;
+  padding: 11px 14px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+nav button {
+  text-align: left;
+  background: #26364e;
+}
+
+nav button.active {
+  background: #2563eb;
+}
+
+/* Editor, actions and preview */
+
+textarea {
+  display: block;
+  width: 100%;
+  height: 210px;
+  background: #0a1220;
+  color: #e2f6ea;
+  border: 1px solid #536782;
+  border-radius: 8px;
+  padding: 14px;
+  font: 15px/1.5 Consolas, monospace;
+  margin: 10px 0;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+iframe {
+  background: white;
+  width: 100%;
+  height: 190px;
+  border: 0;
+  border-radius: 8px;
+}
+
+#feedback {
+  min-height: 25px;
+  color: #9fe1ad;
+}
+
+label {
+  font-weight: 700;
+}
+
+/* Small screens: stack the lesson list above the lesson */
+
+@media (max-width: 720px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+}

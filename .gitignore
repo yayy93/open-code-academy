@@ -1,0 +1,12 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor settings
+.vscode/
+.idea/
+
+# Dependencies and build output (none yet; reserved for future tooling)
+node_modules/
+dist/

@@ -1,1 +1,49 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Open Code Academy</title><link rel="stylesheet" href="style.css"></head><body><header><h1>Open Code Academy</h1><p>HTML Foundations · Learn anywhere, offline</p></header><main><aside><h2>Lessons</h2><nav id="lessons"></nav><p id="progress"></p></aside><section><h2 id="title"></h2><p id="explanation"></p><p><strong>Challenge:</strong> <span id="challenge"></span></p><label for="editor">Your HTML</label><textarea id="editor" spellcheck="false"></textarea><div class="actions"><button id="run">Preview</button><button id="check">Check answer</button><button id="hint">Hint</button></div><p id="feedback" role="status"></p><h3>Live preview</h3><iframe id="preview" title="HTML preview" sandbox=""></iframe></section></main><script src="lessons.js"></script><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Open Code Academy</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Open Code Academy</h1>
+    <p>HTML Foundations · Learn anywhere, offline</p>
+  </header>
+
+  <main>
+    <aside>
+      <h2>Lessons</h2>
+      <nav id="lessons"></nav>
+      <p id="progress"></p>
+    </aside>
+
+    <section>
+      <h2 id="title"></h2>
+      <p id="explanation"></p>
+      <p><strong>Challenge:</strong> <span id="challenge"></span></p>
+
+      <label for="editor">Your HTML</label>
+      <textarea id="editor" spellcheck="false"></textarea>
+
+      <div class="actions">
+        <button id="run">Preview</button>
+        <button id="check">Check answer</button>
+        <button id="hint">Hint</button>
+      </div>
+
+      <p id="feedback" role="status"></p>
+
+      <h3>Live preview</h3>
+      <!-- An empty sandbox attribute blocks scripts, forms, popups and top-level navigation. -->
+      <iframe id="preview" title="HTML preview" sandbox=""></iframe>
+    </section>
+  </main>
+
+  <!-- Classic scripts, not ES modules: Chromium blocks module scripts on file:// pages. -->
+  <script src="lessons.js"></script>
+  <script src="progress.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

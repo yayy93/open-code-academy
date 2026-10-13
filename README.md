@@ -25,4 +25,20 @@ This prototype opens a local HTML file directly; it does not require a server. P
 - Do not use this validation approach to execute untrusted Java/Python programs.
 
 ## Files
-`index.html` UI; `style.css` styling; `lessons.js` content and checks; `app.js` interaction and persistence; `Start-Academy.bat` launcher.
+- `index.html`: page structure
+- `style.css`: styling
+- `lessons.js`: lesson content and answer checks
+- `progress.js`: pure helpers for reading saved progress
+- `app.js`: page behaviour and saving
+- `Start-Academy.bat`: Windows launcher (kept with CRLF line endings by `.gitattributes`)
+- `tests/`: automated tests
+
+Scripts are plain classic `<script>` files with no build step. Do not convert them to ES modules or load files with `fetch()`: Chromium blocks both on `file://` pages.
+
+## Running the tests
+No installation is needed.
+
+- **Validator tests:** open `tests/validators.html` in a browser. It checks every lesson against known correct and incorrect answers, and confirms that each lesson's starter code does not already pass.
+- **Unit tests:** with Node.js 20 or newer, run `node --test` from the project folder. These cover saved-progress parsing and the structure of `lessons.js`.
+
+When you add or change a lesson, add matching cases to `tests/validators.html`.

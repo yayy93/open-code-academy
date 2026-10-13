@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Validator tests</title>
+  <style>
+    body { font-family: system-ui, Segoe UI, sans-serif; margin: 24px; }
+    #summary { font-size: 1.25rem; font-weight: 700; }
+    .pass { color: #15803d; }
+    .fail { color: #b91c1c; }
+    table { border-collapse: collapse; margin-top: 16px; }
+    th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: left; vertical-align: top; }
+    code { white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>Lesson validator tests</h1>
+  <p>Open this file in a browser. It runs offline and needs no installation.</p>
+  <p id="summary"></p>
+  <table>
+    <thead><tr><th>Result</th><th>Lesson</th><th>Expected</th><th>Student code</th></tr></thead>
+    <tbody id="results"></tbody>
+  </table>
+
+  <script src="../lessons.js"></script>
+  <script>
+    /*
+     * Known answers for each lesson, keyed by lesson title so the cases stay
+     * attached to the right lesson if lessons are reordered. Each lesson's
+     * starter code is also checked automatically: it must not already pass.
+     */
+    const CASES = {
+      '1. Your First Heading': {
+        pass: [
+          '<h1>Hello, Ethiopia!</h1>',
+          '<h1>  Hello, Ethiopia!  </h1>'
+        ],
+        fail: [
+          '<h1>Hello Ethiopia</h1>',
+          '<h2>Hello, Ethiopia!</h2>',
+          '<p>Hello, Ethiopia!</p>',
+          ''
+        ]
+      },
+      '2. Headings and Paragraphs': {
+        pass: [
+          '<h1>My Story</h1>\n<p>One</p>\n<p>Two</p>',
+          '<h1>A</h1><p>One</p><p>Two</p><p>Three</p>'
+        ],
+        fail: [
+          '<h1>My Story</h1><p>Only one</p>',
+          '<p>One</p><p>Two</p>',
+          '<h1>My Story</h1><p>One</p><p>   </p>'
+        ]
+      },
+      '3. Links': {
+        pass: [
+          '<a href="https://example.org">Visit example</a>',
+          '<a href="page.html">Next page</a>'
+        ],
+        fail: [
+          '<a href="https://example.org"></a>',
+          '<a href="  ">Text</a>',
+          '<a>No href</a>'
+        ]
+      },
+      '4. Images': {
+        pass: [
+          '<img src="photo.jpg" alt="A mountain at sunrise">'
+        ],
+        fail: [
+          '<img src="photo.jpg">',
+          '<img src="photo.jpg" alt=" ">',
+          '<img alt="A mountain">'
+        ]
+      },
+      '5. Lists': {
+        pass: [
+          '<ul><li>One</li><li>Two</li><li>Three</li></ul>',
+          '<ol><li>One</li><li>Two</li><li>Three</li><li>Four</li></ol>'
+        ],
+        fail: [
+          '<ul><li>One</li><li>Two</li></ul>',
+          '<ul><li>One</li><li>Two</li><li> </li></ul>',
+          '<li>One</li><li>Two</li><li>Three</li>'
+        ]
+      }
+    };
+
+    // Same checking logic as app.js: parse, never execute, and treat a throw as a failure.
+    function check(lesson, html) {
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      try {
+        return !!lesson.test(doc);
+      } catch {
+        return false;
+      }
+    }
+
+    const results = [];
+    LESSONS.forEach(lesson => {
+      const cases = CASES[lesson.title];
+      if (!cases) {
+        results.push({ ok: false, lesson: lesson.title, expected: 'test cases', html: '(no cases written for this lesson)' });
+        return;
+      }
+      cases.pass.forEach(html => results.push({ ok: check(lesson, html), lesson: lesson.title, expected: 'pass', html }));
+      cases.fail.forEach(html => results.push({ ok: !check(lesson, html), lesson: lesson.title, expected: 'fail', html }));
+      results.push({ ok: !check(lesson, lesson.starter), lesson: lesson.title, expected: 'fail (starter code)', html: lesson.starter });
+    });
+    Object.keys(CASES)
+      .filter(title => !LESSONS.some(lesson => lesson.title === title))
+      .forEach(title => results.push({ ok: false, lesson: title, expected: 'lesson to exist', html: '(cases refer to a missing lesson)' }));
+
+    const tbody = document.getElementById('results');
+    results.forEach(r => {
+      const row = tbody.insertRow();
+      const status = row.insertCell();
+      status.textContent = r.ok ? 'PASS' : 'FAIL';
+      status.className = r.ok ? 'pass' : 'fail';
+      row.insertCell().textContent = r.lesson;
+      row.insertCell().textContent = r.expected;
+      const code = document.createElement('code');
+      code.textContent = r.html === '' ? '(empty)' : r.html;
+      row.insertCell().append(code);
+    });
+
+    const failed = results.filter(r => !r.ok).length;
+    const summary = document.getElementById('summary');
+    summary.textContent = failed
+      ? `${failed} of ${results.length} checks failed`
+      : `All ${results.length} checks passed`;
+    summary.className = failed ? 'fail' : 'pass';
+    // Machine-readable result for automated runs (e.g. a headless browser).
+    document.body.dataset.result = failed ? 'fail' : 'pass';
+  </script>
+</body>
+</html>
