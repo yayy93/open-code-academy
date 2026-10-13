@@ -42,3 +42,7 @@ No installation is needed.
 - **Unit tests:** with Node.js 20 or newer, run `node --test` from the project folder. These cover saved-progress parsing and the structure of `lessons.js`.
 
 When you add or change a lesson, add matching cases to `tests/validators.html`.
+
+## License
+- Code: [MIT](LICENSE)
+- Lesson content (teaching text, translations and lesson media): [CC BY-SA 4.0](LICENSE-CONTENT.md)
